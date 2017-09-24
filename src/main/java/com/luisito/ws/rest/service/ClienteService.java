@@ -14,46 +14,44 @@ import javax.ws.rs.core.Response;
 import com.luisito.ws.rest.vo.Cliente;
 
 @Path("/cliente")
-public class ClienteService 
-{
+public class ClienteService {
 	@GET
 	@Path("/{id}")
-	public Response obtenerCliente(@PathParam("id") int id)
-	{
+	public Response obtenerCliente(@PathParam("id") int id) {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
-		if(cliente.buscar()) {
-			return Response.ok(cliente,MediaType.APPLICATION_JSON).build();
+		if (cliente.buscar()) {
+			return Response.ok(cliente, MediaType.APPLICATION_JSON).build();
 		}
 		return Response.ok("{\"mensaje\":\"No se encontro el cliente\"}").build();
 	}
+
 	@GET
-	public Response obtenerClientes()
-	{
+	public Response obtenerClientes() {
 		Cliente cliente = new Cliente();
 		List<Cliente> clientes = cliente.todos();
-		if(clientes != null)
-			return Response.ok(clientes,MediaType.APPLICATION_JSON).build();
+		if (clientes != null)
+			return Response.ok(clientes, MediaType.APPLICATION_JSON).build();
 		return Response.status(Response.Status.NOT_FOUND).build();
-		
+
 	}
+
 	@POST
-	@Consumes({MediaType.APPLICATION_JSON})
-	public Response guardarCliente(Cliente cliente)
-	{
-		if(cliente.guardar())
-			return Response.ok("{\"guardado\":true}",MediaType.APPLICATION_JSON).build();
-		return Response.ok("{\"guardado\":false}",MediaType.APPLICATION_JSON).build();
+	@Consumes({ MediaType.APPLICATION_JSON })
+	public Response guardarCliente(Cliente cliente) {
+		if (cliente.guardar())
+			return Response.ok("{\"guardado\":true}", MediaType.APPLICATION_JSON).build();
+		return Response.ok("{\"guardado\":false}", MediaType.APPLICATION_JSON).build();
 	}
+
 	@DELETE
 	@Path("{id}")
-	public Response eliminar(@PathParam("id") int id)
-	{
+	public Response eliminar(@PathParam("id") int id) {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
-		if(cliente.eliminar())
-			return Response.ok("{\"eliminado\":true}",MediaType.APPLICATION_JSON).build();
-		return Response.ok("{\"eliminado\":false}",MediaType.APPLICATION_JSON).build();
+		if (cliente.eliminar())
+			return Response.ok("{\"eliminado\":true}", MediaType.APPLICATION_JSON).build();
+		return Response.ok("{\"eliminado\":false}", MediaType.APPLICATION_JSON).build();
 	}
-	
+
 }
